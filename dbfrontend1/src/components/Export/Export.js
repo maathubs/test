@@ -79,6 +79,7 @@ class Export extends Component {
   connect = () => { 
     if(this.state.hostName&&this.state.portName&&this.state.value){
       console.log("button clicked in export",this.state)
+      console.log("button clicked in export",this.state)
       const collectionList = this.state.impSelectedCollection.toString();
       axios.post("http://localhost:5000/graphql", {
         query:print(gql`
