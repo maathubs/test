@@ -62,12 +62,12 @@ async function getCollections(host,port,dbname) {
             console.log('Connected to mongo server.');
             //trying to get collection names
             connection.db.listCollections().toArray(function (err, names) { 
-               let resultCollection=[];
-                    resultCollection= names.filter( name => !(name.name).includes("system.") ) 
+                const blacklist = ['system.', 'startup_']
+                const cleanNames = names.filter(name => !blacklist.some(s => (name.name).includes(s)));
                     mongoose.connect("mongodb://"+host+":"+port+"/"+dbname ,{useNewUrlParser: true});
                     var connection = mongoose.connection;
                     connection.on('error', console.error.bind(console, 'connection error:'));  
-                res(resultCollection); 
+                res(cleanNames); 
             })
         });
     });
